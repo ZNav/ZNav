@@ -1,16 +1,47 @@
-## Hi there 👋
+# Hi there, I'm Zander Navratil! 👋
 
-<!--
-**ZNav/ZNav** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+🚀 **Software Developer | Test Automation Enthusiast | Cloud Explorer**
 
-Here are some ideas to get you started:
+I am a passionate software developer with experience in **JavaScript, TypeScript, Python, Vue.js, Angular, and Cypress**. I love building robust web applications, automating workflows, and solving real-world problems with code.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+---
+
+## 🔧 Tech Stack & Tools
+
+**Languages:** JavaScript, TypeScript, Python, AutoHotkey  
+**Frontend:** Vue.js, Angular, HTML, CSS, Markdown  
+**Backend & Cloud:** Firebase, AWS, Azure, SQL
+**Testing & Automation:** Cypress, Selenium, Docker  
+
+---
+
+## 📌 Featured Projects
+
+### [📊 Salary Information Generator](https://github.com/ZNav/Salary-Info-Generator)
+A Python-based web scraper that gathers salary data from Indeed and exports it as a CSV.
+- **Tech Used:** Python, Scrapy
+- **Features:** Data extraction, CSV generation, automation
+
+### [🌦 WeatherApp](https://github.com/ZNav/WeatherApp)
+A clean and intuitive weather report application built with Vue.js.
+- **Tech Used:** Vue.js, OpenWeather API
+- **Features:** Location-based weather, temperature display, dynamic UI
+
+🔗 Check out my [GitHub Repositories](https://github.com/ZNav?tab=repositories) for more cool projects!
+
+---
+
+## 🚀 What I’m Working On
+- 🌍 Contributing to **open-source projects** in Vue.js, Cypress, and Firebase.
+- 🏗 Building a **test automation dashboard** using Cypress & Selenium.
+- 📚 Learning more about **cloud deployments with AWS and Azure**.
+
+---
+
+## 📬 Connect with Me
+💼 [LinkedIn](https://www.linkedin.com/in/zander-navratil-743452185/)  
+📧 zandernavratil@gmail.com  
+
+---
+
+⚡ **Fun Fact:** I love automation – both in code and in life! 🚀
