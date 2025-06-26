@@ -32,12 +32,4 @@ Blockchain analysis, transaction tracing, and code with purpose.
 
 ---
 
-## Contact
-
-* Twitter: [@znav\_eth](https://twitter.com/znav_eth)
-* Telegram: `@znav`
-* Email: [znav@protonmail.com](mailto:znav@protonmail.com)
-
----
-
 > Stay curious. Trace everything. Keep it simple.
