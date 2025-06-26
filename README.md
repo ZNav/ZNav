@@ -1,47 +1,43 @@
-# Hi there, I'm Zander Navratil! 👋
+# Hey, I'm Zander
 
-🚀 **Software Developer | Test Automation Enthusiast | Cloud Explorer**
-
-I am a passionate software developer with experience in **JavaScript, TypeScript, Python, Vue.js, Angular, and Cypress**. I love building robust web applications, automating workflows, and solving real-world problems with code.
+Blockchain analysis, transaction tracing, and code with purpose.
 
 ---
 
-## 🔧 Tech Stack & Tools
+## What I Do
 
-**Languages:** JavaScript, TypeScript, Python, AutoHotkey  
-**Frontend:** Vue.js, Angular, HTML, CSS, Markdown  
-**Backend & Cloud:** Firebase, AWS, Azure, SQL
-**Testing & Automation:** Cypress, Selenium, Docker  
-
----
-
-## 📌 Featured Projects
-
-### [📊 Salary Information Generator](https://github.com/ZNav/Salary-Info-Generator)
-A Python-based web scraper that gathers salary data from Indeed and exports it as a CSV.
-- **Tech Used:** Python, Scrapy
-- **Features:** Data extraction, CSV generation, automation
-
-### [🌦 WeatherApp](https://github.com/ZNav/WeatherApp)
-A clean and intuitive weather report application built with Vue.js.
-- **Tech Used:** Vue.js, OpenWeather API
-- **Features:** Location-based weather, temperature display, dynamic UI
-
-🔗 Check out my [GitHub Repositories](https://github.com/ZNav?tab=repositories) for more cool projects!
+* Dig into Crypto wallets and follow the money
+* Build tools that work offline and prioritize clarity
+* Maintain a growing list of known scams, shady tokens, and mixer trails
+* Write clean Python and focus on real-world value
 
 ---
 
-## 🚀 What I’m Working On
-- 🌍 Contributing to **open-source projects** in Vue.js, Cypress, and Firebase.
-- 🏗 Building a **test automation dashboard** using Cypress & Selenium.
-- 📚 Learning more about **cloud deployments with AWS and Azure**.
+## Current Projects
+
+* **Wallet Analyzer**: parses CSV exports, flags suspicious flows
+* **Contract DB**: custom label set for known mixers and bad actors
+* **Budget Tracker CLI**: simple ETH financials, no UI fluff
 
 ---
 
-## 📬 Connect with Me
-💼 [LinkedIn](https://www.linkedin.com/in/zander-navratil-743452185/)  
-📧 zandernavratil@gmail.com  
+## Skills
+
+| Area      | Details                       |
+| --------- | ----------------------------- |
+| Languages | Python, Bash                  |
+| Focus     | Transaction analysis, tracing |
+| Tools     | Etherscan, Dune, CSV, grep    |
+| Approach  | Lightweight, offline-first    |
 
 ---
 
-⚡ **Fun Fact:** I love automation – both in code and in life! 🚀
+## Contact
+
+* Twitter: [@znav\_eth](https://twitter.com/znav_eth)
+* Telegram: `@znav`
+* Email: [znav@protonmail.com](mailto:znav@protonmail.com)
+
+---
+
+> Stay curious. Trace everything. Keep it simple.
