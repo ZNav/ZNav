@@ -29,11 +29,6 @@ Simple, transparent budgeting for ETH wallets—zero UI bloat
 | Tools       | Etherscan, Dune, grep, CSV                         |
 | Approach    | Lightweight, auditable, real-world impact          |
 
-## Founder @ Cooksbook
-
-Bridging food and tech to help people cook at home with chef-led recipes and AI support.  
-Building in public at [Cooksbook](https://cooksbook.com) – a platform for culinary creators.
-
 ---
 
 > Stay curious. Trace everything. Keep it simple.
