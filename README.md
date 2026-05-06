@@ -1,33 +1,41 @@
-# Hey, I'm Zander 
+```
+   ███████╗███╗   ██╗ █████╗ ██╗   ██╗
+   ╚══███╔╝████╗  ██║██╔══██╗██║   ██║
+     ███╔╝ ██╔██╗ ██║███████║██║   ██║
+    ███╔╝  ██║╚██╗██║██╔══██║╚██╗ ██╔╝
+   ███████╗██║ ╚████║██║  ██║ ╚████╔╝
+   ╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝  ╚═══╝
+```
 
-Cybersecurity analyst and founder building tools that uncover truth, protect users, and support decentralization.
+# Hey, I'm Zander
 
-## What I Do
+I build for the sovereign, the curious, and the off-grid. Cybersecurity,
+self-hosted infrastructure, and tools that hand control back to the user.
 
-- Investigate crypto wallets and trace transactions across chains  
-- Develop offline-first tools for transparency and threat detection  
-- Maintain an evolving database of scams, shady tokens, and laundering trails  
-- Build and automate using Python, with clarity and practicality in mind
+---
 
-## Current Projects
+## What I'm running
 
-### Wallet Analyzer  
-CLI + CSV parser that flags suspicious flows and wallet interactions
+- **[`gnomenav.com`](https://gnomenav.com)** — 20+ self-hosted services on a homelab I admin: Jellyfin, Nextcloud, Wiki.js, AdGuard, mail, navidrome, kiwix offline Wikipedia, custom dashboards. Cloudflare Zero Trust tunnels, VPN-routed media stack, NFS across two boxes.
+- **Blockchain forensics** — wallet flow analysis, scam/mixer flagging, label DB. Offline-first, auditable.
+- **Decentralization in practice** — on-chain proof storage (`proofdrop`), esoteric language design (`orbit`), couple-collab knowledge bases on terminal-aesthetic Wiki.js.
 
-### Contract DB  
-Growing label set for known mixers, exploit contracts, and scam tokens
+## Projects
 
-### Budget Tracker (ETH CLI)  
-Simple, transparent budgeting for ETH wallets—zero UI bloat
+| Repo | What | Stack |
+|---|---|---|
+| [orbit](https://github.com/ZNav/orbit) | Binary-based esoteric language with fractal table structure | Python |
+| [proofdrop](https://github.com/ZNav/proofdrop) | Mint NFTs as immutable, anonymous on-chain proof | Solidity · Hardhat · JS |
+| [offline-wallet-analyzer](https://github.com/ZNav/offline-wallet-analyzer) | ETH wallet forensics — flags mixers, scams, known bad addresses | Python |
 
-## Skills Snapshot
+## Stack
 
-| Area        | Tools & Technologies                               |
-|-------------|----------------------------------------------------|
-| Languages   | Python, Bash                                       |
-| Focus       | Transaction tracing, risk analysis, threat modeling|
-| Tools       | Etherscan, Dune, grep, CSV                         |
-| Approach    | Lightweight, auditable, real-world impact          |
+| | |
+|---|---|
+| **Lang** | Python · Bash · JavaScript · C# · Vue |
+| **Infra** | Docker Compose · Cloudflare Zero Trust · NFS · systemd · AdGuard |
+| **Focus** | OSINT · blockchain forensics · self-hosting · decentralization |
+| **Style** | Lightweight · auditable · sovereign · CLI-first |
 
 ---
 
