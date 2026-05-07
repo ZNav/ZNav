@@ -44,7 +44,9 @@ self-hosted infrastructure, and tools that hand control back to the user.
 
 ## Latest writing
 
-*Coming — `gnomenav/writeups/` will hold technical writeups (cold-boot recovery, nav CLI design, CF Zero Trust SSH walkthrough). First post drops this week.*
+- **2026-05-07** — [What broke when I came back: 4 failure modes from a homelab cold boot](https://github.com/ZNav/gnomenav/blob/main/writeups/2026-05-07-cold-boot-recovery.md)
+
+Full index at [`gnomenav/WRITEUPS.md`](https://github.com/ZNav/gnomenav/blob/main/WRITEUPS.md). Cadence: aspirational weekly, committed biweekly.
 
 ---
 
