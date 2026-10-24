@@ -1,23 +1,14 @@
 # Zander Navratil
 
-**Cybersecurity Analyst · GRC & Compliance Automation · Risk Management**
+**Cyber**
 
-📍 Tampa, FL · Open to relocation / Seattle · 📞 (740) 243-6757 · ✉ zandernavratil@gmail.com · 🔗 [github.com/ZNav](https://github.com/ZNav)
+zandernavratil@gmail.com · 🔗 [github.com/ZNav](https://github.com/ZNav)
 
 ---
 
 ## Professional summary
 
-Cybersecurity professional with 2+ years of hands-on experience in threat
-detection, incident response, and security operations, backed by a 6-year
-foundation in software engineering. Skilled in designing and automating
-security and compliance workflows using Python, REST APIs, and event-driven
-architectures. Experienced operating within Agile delivery frameworks,
-maintaining technical documentation, and collaborating across engineering and
-business teams to translate regulatory requirements into actionable controls.
-Adept at building observable, automated infrastructure aligned to NIST, ISO
-27001, and industry compliance standards. Proven track record of independent,
-self-directed delivery in high-accountability environments.
+Cybersecurity professional with multiple years of hands-on experience in production systems
 
 ---
 
@@ -46,7 +37,7 @@ self-directed delivery in high-accountability environments.
 |---|---|
 | **Automation & Scripting** | Python · TypeScript · JavaScript ·|
 | **Security Operations** | Threat Detection · Incident Response · Root-cause Analysis · Network Security · WireGuard VPN |
-| **Infrastructure** | Docker · Linux · Cloudflare Zero Trust · Self-hosted service management |
+| **Infrastructure** | Nix · Docker · Linux · Cloudflare Zero Trust · Self-hosted service management |
 | **Delivery & Tooling** | Git · |
 | **Development** | Test Architecture · |
 
@@ -63,17 +54,6 @@ Dean's List (3.53 GPA) · 2018–2020 · Began college coursework in Middle-High
 - Test Automation with Cypress (Advanced) — Udemy · 2021
 - Web Development Fundamentals — Nucamp · 2021
 - *Actively pursuing CISA / CompTIA Security+*
-
----
-
-## Open-source / portfolio highlights
-
-| Project | Description |
-|---|---|
-| [`gnomenav`](https://github.com/ZNav/gnomenav) | Self-hosted homelab IaC — 30+ services, Cloudflare Zero Trust, custom CLI dispatcher, full recovery playbook |
-| [`offline-wallet-analyzer`](https://github.com/ZNav/offline-wallet-analyzer) | Python forensics CLI — flags ETH wallet interactions with mixers/scams. Tested, CI on Python 3.10/3.11/3.12 |
-| [`proofdrop`](https://github.com/ZNav/proofdrop) | ERC-721 contract for immutable, anonymous on-chain proof-of-existence |
-| [`orbit`](https://github.com/ZNav/orbit) | Original esoteric programming language with 3×3 fractal table structure |
 
 ---
 
