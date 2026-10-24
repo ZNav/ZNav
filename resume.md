@@ -23,31 +23,15 @@ self-directed delivery in high-accountability environments.
 
 ## Experience
 
-### Founder & Security Architect — Cooksbook · Tampa, FL (Remote)
-**Oct 2024 – Present**
-
-- Designed and implemented end-to-end security architecture for a cloud-native application including IAM, network segmentation, audit logging, and secrets management.
-- Built automated monitoring and alerting workflows using Python scripting and API integrations to surface anomalies and enforce control objectives.
-- Defined internal security policies, access control standards, and data governance practices aligned to NIST CSF and ISO 27001 principles.
-- Managed vendor risk, third-party integrations, and compliance obligations as the sole decision-maker for all technology and security functions.
-- Developed and maintained runbooks, architecture documentation, and operational playbooks for incident detection and response.
-
-### Cybersecurity Analyst — Independent Consulting · Remote
-**Oct 2023 – Oct 2024**
-
-- Performed threat detection and incident response across client environments, triaging alerts, conducting root-cause analysis, and driving durable remediation.
-- Assessed control gaps against regulatory frameworks including NIST 800-53 and ISO/IEC 27001; produced risk matrices and remediation roadmaps.
-- Delivered written reports and executive-level summaries communicating risk posture, findings, and remediation status to stakeholders.
-
-### Software Developer — HLC · Tampa, FL
-**Nov 2022 – Oct 2023**
+### Full - Stack Software Developer — HLC · Tampa, FL
+**1 Year**
 
 - Built and maintained secure, customer-facing web applications with attention to input validation, authentication flows, and access control.
 - Collaborated cross-functionally with backend teams to ensure secure API design and data integrity across system boundaries.
 - Contributed to internal documentation standards and knowledge-sharing practices across the engineering org.
 
-### Software Developer — QA & Compliance Automation — AlayaCare · Columbus, OH
-**May 2019 – Nov 2022**
+### Software Developer — QA — AlayaCare · Columbus, OH
+**3 Years**
 
 - Architected and maintained thousands of automated test cases in TypeScript and Cypress for a healthcare SaaS platform — directly supporting audit readiness and regulatory compliance in a HIPAA-adjacent environment.
 - Defined control testing patterns, acceptance criteria, and evidence collection workflows; reported metrics and remediation status to engineering leadership.
@@ -60,19 +44,19 @@ self-directed delivery in high-accountability environments.
 
 | | |
 |---|---|
-| **GRC & Compliance** | NIST CSF / 800-53 · ISO/IEC 27001 · SOC 2 · SOX ITGC · PCI DSS · Risk-to-Control Alignment |
-| **Automation & Scripting** | Python · TypeScript · JavaScript · REST APIs · Event-driven workflows · CI/CD pipelines |
+| **Automation & Scripting** | Python · TypeScript · JavaScript ·|
 | **Security Operations** | Threat Detection · Incident Response · Root-cause Analysis · Network Security · WireGuard VPN |
-| **Infrastructure** | Docker · AWS · Azure · Linux · Cloudflare Zero Trust · Nginx · Self-hosted service management (30+ services) |
-| **Delivery & Tooling** | Agile / Scrum · Backlog Management · Git · Technical Documentation · Runbooks · Wiki |
-| **Development** | Vue.js · Angular · GraphQL · Firebase · Cypress · Selenium · Test Architecture |
+| **Infrastructure** | Docker · Linux · Cloudflare Zero Trust · Self-hosted service management |
+| **Delivery & Tooling** | Git · |
+| **Development** | Test Architecture · |
 
 ---
 
 ## Education & certifications
 
-**AAS — Software Development** · Columbus State Community College
-Dean's List (3.53 GPA) · 2018–2020 · Began college coursework at age 11
+**Associate of Arts** · State College Of Florida
+**Courses in Software Development** · Columbus State Community College
+Dean's List (3.53 GPA) · 2018–2020 · Began college coursework in Middle-High School
 
 **Certifications**
 - AWS Cloud Computing 101 · 2020
