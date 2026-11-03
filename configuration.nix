@@ -49,8 +49,8 @@ let
       echo " heave    ~ rib then gitbs"
       echo " tidy     ~ source zsh"
       echo " scrub    ~ collect nix garbage and source zsh"
-      echo " htb up   ~ opens up openvpn connection to htb"
-      echo " htb down ~ closes down open connection to htb"
+      echo " htb.u    ~ opens up openvpn connection to htb"
+      echo " htb.d    ~ closes down open connection to htb"
       echo " gp       ~ this page :o"
       echo ""
     '';
@@ -109,8 +109,8 @@ in
       "scrub" = "tidy && sudo nix-collect-garbage";
       "gs" = "'+set number'";
       "nvim" = "nvim '+set number'";
-      "htb up" = "sudo systemctl start openvpn-htb";
-      "htb down" = "sudo systemctl stop openvpn-htb";
+      "htb.u" = "sudo systemctl start openvpn-htb";
+      "htb.d" = "sudo systemctl stop openvpn-htb";
     };
     interactiveShellInit = ''
       gnomepage
