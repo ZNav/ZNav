@@ -51,6 +51,9 @@ let
       echo " scrub    ~ collect nix garbage and source zsh"
       echo " htb.u    ~ opens up openvpn connection to htb"
       echo " htb.d    ~ closes down open connection to htb"
+      echo " on.x/off ~ any service listed can be used in place of x"
+      echo ""
+      echo " services ~ jellyfin, immich, qbittorrent, minecraft-server, openvpn-htb"
       echo " gp       ~ this page :o"
       echo ""
     '';
@@ -72,8 +75,10 @@ in
 
 #config
   nixpkgs.config.allowUnfree = true;
-  services.xserver.xkb.layout = "us";
   time.timeZone = "America/New_York";
+  services.xserver.xkb.layout = "us";
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  hardware.graphics.enable = true;
 
 
   # user - config
@@ -127,7 +132,7 @@ in
     "d /data/books 0775 sasha data -"
     "d /data/unsorted 0775 sasha data -"
     "d /data/files 0775 sasha data -"
-    "d /data/.Private 0700 sasha data -"
+    "d /data/.Private 0775 sasha data -"
     "d /data/videos 0775 sasha data -"
   ];
 
@@ -147,6 +152,7 @@ in
     cbonsai # screensaver
     python3 # python
     jellyfin-ffmpeg # jellyfin transcoding
+    rustdesk # remote desktop
 
     #hacking
     nmap
@@ -174,6 +180,7 @@ in
     2283 # immich
     8096 # jellyfin
     25565 # minecraft
+    1194 # openvpn
   ];
   networking.firewall.allowedUDPPorts = [ 
     1194 # openvpn
@@ -182,12 +189,10 @@ in
   networking.networkmanager.enable = true;
   networking.hostName = "sasha";
 
-  #htb openvpn config
+  #htb openvpn
   services.openvpn.servers.htb = {
-    config = ''
-      config /data/.Private/htb.ovpn;
-      auth-user-pass /data/.Private/htbCreds.txt;
-    '';
+    autoStart = false;
+    config = "/data/.Private/htb.ovpn";
     updateResolvConf = true;
   };
 
@@ -219,9 +224,6 @@ in
   services.jellyfin = {
     enable = true;
   };
-  # media server transcoding - service
-  services.xserver.videoDrivers = [ "amdgpu" ];
-  hardware.graphics.enable = true;
 
 #util
 
@@ -229,6 +231,8 @@ in
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  # rustdesk - util
+  services.xserver.enable = true;
 
   # power management - util
   services.logind.settings.Login = {
