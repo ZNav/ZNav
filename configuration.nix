@@ -3,9 +3,9 @@
   # *photo host
   # *minecraft server
   # *nvim auto set number
-  # seafile
-  # live TV (playlists with downloaded ads)
   # HTB ez deploy vm partially persistant
+  # seafile not possible, need another file manager?
+  # live TV (playlists with downloaded ads)
   # SSO all services
   # homepage w/ hyperlinks and admin controls
   # remote access (cloudflare tunnel? vpn?)
@@ -16,7 +16,7 @@
   #   find some good form of indexing that allows for playlist creation
   # prowlarr -> qbittorrent -> data
   #}
-  # data -> seafile -> jellyfin
+  # data -> file manager -> jellyfin
 #};
 
 {
@@ -37,37 +37,40 @@ let
       cbonsai -p
       echo "hello sasha :p"
       echo ""
-      echo "          ~ some options for my favorite baby bing ~ "
-      echo " cfig     ~ opens configuration.nix in nvim ~ "
-      echo " wrkspc   ~ changes dirs to where configuration.nix is ~ "
-      echo " ll       ~ list files ~ "
-      echo " filecnt  ~ count files in dir ~ "
-      echo " ranger   ~ file manager ~ "
-      echo " cmus     ~ music player ~ "
-      echo " rib      ~ run it back runs sudo nixos-rebuild switch ~ "
-      echo " gitbs    ~ adds configuration.nix ~ "
-      echo " heave    ~ rib then gitbs ~ "
-      echo " tidy     ~ source zsh ~ "
-      echo " scrub    ~ collect nix garbage and source zsh ~ "
-      echo " gp       ~ this page :o "
+      echo "          ~ some options for my favorite baby bing"
+      echo " cfig     ~ opens configuration.nix in nvim"
+      echo " wrkspc   ~ changes dirs to where configuration.nix is"
+      echo " ll       ~ list files"
+      echo " filecnt  ~ count files in dir"
+      echo " ranger   ~ file manager"
+      echo " cmus     ~ music player"
+      echo " rib      ~ run it back runs sudo nixos-rebuild switch"
+      echo " gitbs    ~ adds configuration.nix"
+      echo " heave    ~ rib then gitbs"
+      echo " tidy     ~ source zsh"
+      echo " scrub    ~ collect nix garbage and source zsh"
+      echo " htb up   ~ opens up openvpn connection to htb"
+      echo " htb down ~ closes down open connection to htb"
+      echo " gp       ~ this page :o"
       echo ""
     '';
   };
 
 in
 
-
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-#Initialization
+#initialization
   # bootloader - util
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-#Config
+  documentation.enable = false; # disabling due to python crash
+
+#config
   nixpkgs.config.allowUnfree = true;
   services.xserver.xkb.layout = "us";
   time.timeZone = "America/New_York";
@@ -82,6 +85,11 @@ in
     homeMode = "0755";
     packages = with pkgs; [ ];
   };
+
+  # service groups - config
+  users.users.qbittorrent.extraGroups = [ "data" ];
+  users.users.jellyfin.extraGroups = [ "data" "video" "render" ];
+  users.users.immich.extraGroups = [ "data" ];
 
   # commands - config
   programs.zsh = {
@@ -101,7 +109,8 @@ in
       "scrub" = "tidy && sudo nix-collect-garbage";
       "gs" = "'+set number'";
       "nvim" = "nvim '+set number'";
-      " " = "gnomepage";
+      "htb up" = "sudo systemctl start openvpn-htb";
+      "htb down" = "sudo systemctl stop openvpn-htb";
     };
     interactiveShellInit = ''
       gnomepage
@@ -110,16 +119,16 @@ in
 
   # file management - arc
   systemd.tmpfiles.rules = [
-    "d /data 0775 root data -"
-    "d /data/pictures 2775 sasha data -"
-    "d /data/movies 2775 sasha data -"
-    "d /data/shows 2775 sasha data -"
-    "d /data/music 2775 sasha data -"
-    "d /data/books 2775 sasha data -"
-    "d /data/unsorted 2775 sasha data -"
-    "d /data/files 2775 sasha data -"
-    "d /data/.Private 2775 sasha data -"
-    "d /data/videos 2775 sasha data -"
+    "d /data 0775 sasha data -"
+    "d /data/pictures 0775 sasha data -"
+    "d /data/movies 0775 sasha data -"
+    "d /data/shows 0775 sasha data -"
+    "d /data/music 0775 sasha data -"
+    "d /data/books 0775 sasha data -"
+    "d /data/unsorted 0775 sasha data -"
+    "d /data/files 0775 sasha data -"
+    "d /data/.Private 0700 sasha data -"
+    "d /data/videos 0775 sasha data -"
   ];
 
   # packages - arc
@@ -129,15 +138,25 @@ in
     wget # utilities
     tree # utilities
     eza # utilities
+    openvpn # networking
     git # version control
     fastfetch # stats
     ghostty # terminal
-    cmus # TUI audio player
-    ranger # TUI file explorer
+    cmus # tui audio player
+    ranger # tui file explorer
     cbonsai # screensaver
+    python3 # python
+    jellyfin-ffmpeg # jellyfin transcoding
+
+    #hacking
+    nmap
+    metasploit
+    john
+    hashcat
+    seclists
   ];
 
-  # SSH - arc
+  # ssh - arc
   services.openssh = {
     enable = true;
     settings = {
@@ -150,14 +169,27 @@ in
 
   # firewall - arc
   networking.firewall.allowedTCPPorts = [
-    22 # SSH
-    8080 # Qbitt
-    2283 # Immich
-    8096 # Jellyfin
-    25565 # Minecraft
+    22 # ssh
+    8080 # qbitt
+    2283 # immich
+    8096 # jellyfin
+    25565 # minecraft
   ];
-  networking.hostName = "sasha";
+  networking.firewall.allowedUDPPorts = [ 
+    1194 # openvpn
+  ]; 
+  networking.firewall.checkReversePath = "loose";
   networking.networkmanager.enable = true;
+  networking.hostName = "sasha";
+
+  #htb openvpn config
+  services.openvpn.servers.htb = {
+    config = ''
+      config /data/.Private/htb.ovpn;
+      auth-user-pass /data/.Private/htbCreds.txt;
+    '';
+    updateResolvConf = true;
+  };
 
 # Services
 
@@ -187,12 +219,16 @@ in
   services.jellyfin = {
     enable = true;
   };
+  # media server transcoding - service
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  hardware.graphics.enable = true;
 
-#Util
+#util
 
   # desktop manager - util
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+
 
   # power management - util
   services.logind.settings.Login = {
