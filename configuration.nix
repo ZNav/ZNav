@@ -181,6 +181,8 @@ in
     8096 # jellyfin
     25565 # minecraft
     1194 # openvpn
+    8123 # homeassistant
+    9090 # cockpit
   ];
   networking.firewall.allowedUDPPorts = [ 
     1194 # openvpn
@@ -224,6 +226,25 @@ in
   services.jellyfin = {
     enable = true;
   };
+
+  # home assistant - service
+  services.home-assistant = {
+    enable = true;
+    extraComponents = [
+      "default_config"
+      "systemmonitor"
+      "command_line"
+    ];
+    config = {
+      http = {
+        use_x_forwarded_for = true;
+	trusted_proxies = [ "127.0.0.1" "::1" ];
+      };
+    };
+  };
+
+  # cockpit - service
+  services.cockpit.enable = true;
 
 #util
 
