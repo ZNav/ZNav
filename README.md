@@ -4,6 +4,21 @@ This repository tracks the configuration and NixOS deployment states for the mul
 
 <img width="4284" height="5712" alt="homelab" src="https://github.com/user-attachments/assets/f42956ac-b474-4537-9996-df0f34a21fc0" />
 
+## Next Steps
+  # HTB ez deploy vm partially persistant
+  # file manager
+  # live TV (playlists with downloaded ads)
+  # SSO all services
+  # homepage w/ hyperlinks and admin controls
+  # remote access (cloudflare tunnel? vpn?)
+  # configure router for pihole / other ad blocker
+  #
+  #mullvad{
+  #   find some good form of indexing that allows for playlist creation
+  # prowlarr -> qbittorrent -> data
+  #}
+  # data -> file manager -> jellyfin
+
 ## Physical Rack Allocation (12U)
 
 | Unit (U) | Device Identifier | Form Factor | Hardware / Role |
