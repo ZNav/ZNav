@@ -152,9 +152,9 @@ in
     1194 # openvpn
     9090 # cockpit
   ];
-  networking.firewall.allowedUDPPorts = [ 
+  networking.firewall.allowedUDPPorts = [
     1194 # openvpn
-  ]; 
+  ];
   networking.firewall.checkReversePath = "loose";
   networking.networkmanager.enable = true;
   networking.hostName = "x223";
@@ -167,7 +167,6 @@ in
   };
 
 # Services
-
   services.cockpit.enable = true;
 
 #util
