@@ -1,24 +1,3 @@
-# roadmap{
-  # *jellyfin
-  # *photo host
-  # *minecraft server
-  # *nvim auto set number
-  # HTB ez deploy vm partially persistant
-  # seafile not possible, need another file manager?
-  # live TV (playlists with downloaded ads)
-  # SSO all services
-  # homepage w/ hyperlinks and admin controls
-  # remote access (cloudflare tunnel? vpn?)
-  # caps->esc keybind
-  # configure router for pihole / other ad blocker
-  #
-  #mullvad{
-  #   find some good form of indexing that allows for playlist creation
-  # prowlarr -> qbittorrent -> data
-  #}
-  # data -> file manager -> jellyfin
-#};
-
 {
   config,
   lib,
