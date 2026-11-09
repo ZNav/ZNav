@@ -150,6 +150,7 @@ in
   networking.firewall.allowedTCPPorts = [
     22 # ssh
     1194 # openvpn
+    9090 # cockpit
   ];
   networking.firewall.allowedUDPPorts = [ 
     1194 # openvpn
@@ -166,6 +167,8 @@ in
   };
 
 # Services
+
+  services.cockpit.enable = true;
 
 #util
 
