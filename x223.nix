@@ -47,7 +47,6 @@ in
 
 #initialization
   # bootloader - util
-#  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
@@ -159,6 +158,19 @@ in
   networking.networkmanager.enable = true;
   networking.hostName = "x223";
 
+  #mullvad
+  networking.wg-quick.interfaces.wg-mullvad = {
+    address = [ "" ];
+    privateKeyFile = "/data/.Private/mullvad_private.key";
+    peers = [{
+      publickKey = "";
+      endpoint = "";
+      allowedIPs = [ "0.0.0.0/0" "::/0" ];
+      persistentKeepalive = 25;
+    }];
+    dns = [ "" ];
+  };
+
   #htb openvpn
   services.openvpn.servers.htb = {
     autoStart = false;
@@ -168,6 +180,14 @@ in
 
 # Services
   services.cockpit.enable = true;
+
+  #tailscale - arc
+  services.tailscale.enable = true;
+
+  #qbittorrent - service
+  services.qbittorrent = {
+    enable = true;
+  };
 
 #util
 
