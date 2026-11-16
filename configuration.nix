@@ -28,11 +28,9 @@ let
       echo " heave    ~ rib then gitbs"
       echo " tidy     ~ source zsh"
       echo " scrub    ~ collect nix garbage and source zsh"
-      echo " htb.u    ~ opens up openvpn connection to htb"
-      echo " htb.d    ~ closes down open connection to htb"
       echo " on.x/off ~ any service listed can be used in place of x"
       echo ""
-      echo " services ~ jellyfin, immich, qbittorrent, minecraft-server, openvpn-htb"
+      echo " services ~ jellyfin, immich, minecraft-server"
       echo " gp       ~ this page :o"
       echo ""
     '';
@@ -52,12 +50,18 @@ in
 
   documentation.enable = false; # disabling due to python crash
 
+  #mount external ssd for file integreity check on both ends
+  fileSystems."/data/external" = {
+    device = "/dev/disk/by-uuid/5639c41b-9d0c-4149-b77f-b0b947a36cbe";
+    fsType = "ext4";
+    options = [ "nofail" ];
+  };
+
 #config
   nixpkgs.config.allowUnfree = true;
   time.timeZone = "America/New_York";
   services.xserver.xkb.layout = "us";
   services.xserver.videoDrivers = [ "amdgpu" ];
-  hardware.graphics.enable = true;
 
 
   # user - config
@@ -65,15 +69,15 @@ in
   users.users.sasha = {
     isNormalUser = true;
     useDefaultShell = true;
-    extraGroups = [ "wheel" "data" ];
+    extraGroups = [ "wheel" "data" "docker" "render" "video" ];
     homeMode = "0755";
     packages = with pkgs; [ ];
   };
 
   # service groups - config
-  users.users.qbittorrent.extraGroups = [ "data" ];
-  users.users.jellyfin.extraGroups = [ "data" "video" "render" ];
-  users.users.immich.extraGroups = [ "data" ];
+  users.extraGroups.data = {};
+  users.users.jellyfin.extraGroups = [ "data" "video" "render" "wheel"];
+  users.users.immich.extraGroups = [ "data" "video" "render" "wheel" "docker" ];
 
   # commands - config
   programs.zsh = {
@@ -93,8 +97,7 @@ in
       "scrub" = "tidy && sudo nix-collect-garbage";
       "gs" = "'+set number'";
       "nvim" = "nvim '+set number'";
-      "htb.u" = "sudo systemctl start openvpn-htb";
-      "htb.d" = "sudo systemctl stop openvpn-htb";
+      "st" = "systemctl-tui";
     };
     interactiveShellInit = ''
       gnomepage
@@ -104,15 +107,12 @@ in
   # file management - arc
   systemd.tmpfiles.rules = [
     "d /data 0775 sasha data -"
+    "d /data/tank 0775 sasha data -"
+    "d /data/external 0775 sasha data -"
     "d /data/pictures 0775 sasha data -"
-    "d /data/movies 0775 sasha data -"
-    "d /data/shows 0775 sasha data -"
-    "d /data/music 0775 sasha data -"
-    "d /data/books 0775 sasha data -"
     "d /data/unsorted 0775 sasha data -"
     "d /data/files 0775 sasha data -"
     "d /data/.Private 0775 sasha data -"
-    "d /data/videos 0775 sasha data -"
   ];
 
   # packages - arc
@@ -122,7 +122,6 @@ in
     wget # utilities
     tree # utilities
     eza # utilities
-    openvpn # networking
     git # version control
     fastfetch # stats
     ghostty # terminal
@@ -131,7 +130,11 @@ in
     cbonsai # screensaver
     python3 # python
     jellyfin-ffmpeg # jellyfin transcoding
-    rustdesk # remote desktop
+    htop # stats
+    systemctl-tui # monitoring
+    seafile-shared
+    seafile-client
+    zfs
 
     #hacking
     nmap
@@ -155,55 +158,49 @@ in
   # firewall - arc
   networking.firewall.allowedTCPPorts = [
     22 # ssh
-    8080 # qbitt
     2283 # immich
     8096 # jellyfin
-    25565 # minecraft
-    1194 # openvpn
-    8123 # homeassistant
-    9090 # cockpit
+    443 # tailscale
+    9696 # prowlarr
+    80 # adguard
   ];
-  networking.firewall.allowedUDPPorts = [ 
-    1194 # openvpn
-  ]; 
   networking.firewall.checkReversePath = "loose";
   networking.networkmanager.enable = true;
   networking.hostName = "sasha";
 
-  #htb openvpn
-  services.openvpn.servers.htb = {
-    autoStart = false;
-    config = "/data/.Private/htb.ovpn";
-    updateResolvConf = true;
+
+  #tailscale - arc
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server";
   };
+
 
 # Services
 
-  # minecraft - service
-  services.minecraft-server = {
-    enable = true;
-    eula = true;
-    jvmOpts = "-Xms4096M -Xmx4096M";
-    declarative = true;
-    serverProperties = {
-      "server-port" = 25565;
-    };
-  };
-
-  # qbit - service
-  services.qbittorrent = {
-    enable = true;
-  };
-
-  # photo browser - service
+  # immich - service
   services.immich = {
     enable = true;
     host = "0.0.0.0";
+    mediaLocation = "/data/external/pictures";
   };
 
-  # media server - service
+  # jellyfin - service
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      libva-vdpau-driver
+      mesa
+    ];
+  };
+
   services.jellyfin = {
     enable = true;
+    hardwareAcceleration = {
+      enable = true;
+      type = "vaapi";
+      device = "/dev/dri/renderD128";
+    };
   };
 
   # home assistant - service
@@ -215,17 +212,66 @@ in
       "command_line"
     ];
     config = {
-      http = {
-        use_x_forwarded_for = true;
-	trusted_proxies = [ "127.0.0.1" "::1" ];
-      };
+    mobile_app = {};
     };
   };
 
-  # cockpit - service
-  services.cockpit.enable = true;
+  # prowlarr - service
+  services.prowlarr = {
+    enable = true;
+  };
+
+  #adguard - service
+  services.adguardhome = {
+    enable = true;
+    settings = {
+      http = {
+        address = "0.0.0.0:3000";
+      };
+      dns = {
+        bind_hosts = [ "0.0.0.0" ];
+	port = 53;
+	upstream_dns = [
+	  "https://dns.quad9.net/dns-query"
+	  "https://cloudflare-dns.com/dns-query"
+	];
+	bootstrap_dns = [ "9.9.9.9" "1.1.1.1" ];
+	blocking_mode = "default";
+      };
+      filters = [
+        {
+	  name = "StevenBlack Unified";
+	  url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+	  enabled = true;
+	}
+      ];
+    };
+  };
+  services.adguardhome.mutableSettings = true;
 
 #util
+
+  # docker - util
+  virtualisation.docker = {
+    enable = true;
+    autoPrune.enable = true;
+    enableOnBoot = true;
+    daemon.settings = {
+      log-driver = "local";
+      log-opts = { max-size = "10m"; max-file = "3"; };
+    };
+  };
+
+
+  #homarr
+  virtualisation.oci-containers.containers.homarr = {
+    image = "ghcr.io/homarr-labs/homarr:v1.32";
+    ports = [ "7575:7575" ];
+    volumes = [
+      "/tank/homarr:/app/data/configs"
+      "/var/run/dbus:/var/run/dbus"   # optional: docker status widgets
+    ];
+  };
 
   # desktop manager - util
   services.displayManager.gdm.enable = true;
