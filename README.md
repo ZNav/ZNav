@@ -2,15 +2,14 @@
 
 This repository tracks the configuration and NixOS deployment states for the multi-node lab cluster, edge networking routing layers, and local machine configurations.
 
-<img width="4284" height="5712" alt="homelab" src="https://github.com/user-attachments/assets/f42956ac-b474-4537-9996-df0f34a21fc0" />
-
 ## Physical Rack Allocation (12U)
 
 | Unit (U) | Device Identifier | Form Factor | Hardware / Role |
 | :---: | :--- | :--- | :--- |
+| **tabletop** | `t510` | on laptop stand | Lenovo ThinkPad T510 (i5 Cluster hypervisor / CD RW) |
 | **1U - 2U** | `PDU` | 1U (0.33U offset) | MT-VIKI 8-Outlet Surge Protector |
-| **3U** | `x223` | 1U Vented Shelf | Lenovo ThinkPad X220 (i7 Hacking / HTB Node) |
-| **4U** | `t420` | 1U Vented Shelf | Lenovo ThinkPad T420 (i5 Cluster Compute Node) |
+| **3U** | `speaker` | 1U Vented Shelf | USB powered Speaker hooked to t510 |
+| **4U** | `x223` | 1U Vented Shelf | Lenovo ThinkPad X220 (i7 Hacking / HTB Node) |
 | **5U** | — | 1U | Brush Panel / Cable Passthrough |
 | **6U** | `gnomenav` | 1U Rackmount | MikroTik RB3011UiA5-RM Core Router |
 | **7U** | — | 1U | Brush Panel / Cable Passthrough |
@@ -58,12 +57,12 @@ This repository tracks the configuration and NixOS deployment states for the mul
 * **Storage:** 1TB 2.5" SATA III SSD (INLAND)
 * **Role:** High-capacity persistent fast-storage database and active worker node containerization.
 
-#### `t420` (Cluster Node 02)
-* **Hardware:** Lenovo ThinkPad T420
+#### `t510` (Cluster Node 02)
+* **Hardware:** Lenovo ThinkPad T510
 * **CPU:** Intel Core i5-2450M (4 threads) @ 2.50GHz
 * **RAM:** 8GB DDR3-1333 MHz
 * **Storage:** 500GB 2.5" 7200RPM Mechanical HDD (Hitachi Travelstar HTS72755)
-* **Role:** Highly stable secondary failover node handling non-I/O bound calculations and storage logs.
+* **Role:** Highly stable secondary failover node handling non-I/O bound calculations and storage logs with torrent client acting as hypervisor due to the CD drive
 
 #### `sasha` (Heavy Compute / GPU Worker Node)
 * **Hardware:** MSI Delta 15 Gaming Laptop
