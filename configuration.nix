@@ -69,7 +69,7 @@ in
   users.users.sasha = {
     isNormalUser = true;
     useDefaultShell = true;
-    extraGroups = [ "wheel" "data" "docker" "render" "video" ];
+    extraGroups = [ "wheel" "data" "render" "video" ];
     homeMode = "0755";
     packages = with pkgs; [ ];
   };
@@ -77,7 +77,7 @@ in
   # service groups - config
   users.extraGroups.data = {};
   users.users.jellyfin.extraGroups = [ "data" "video" "render" "wheel"];
-  users.users.immich.extraGroups = [ "data" "video" "render" "wheel" "docker" ];
+  users.users.immich.extraGroups = [ "data" ];
 
   # commands - config
   programs.zsh = {
@@ -106,13 +106,12 @@ in
 
   # file management - arc
   systemd.tmpfiles.rules = [
-    "d /data 0775 sasha data -"
-    "d /data/tank 0775 sasha data -"
-    "d /data/external 0775 sasha data -"
-    "d /data/pictures 0775 sasha data -"
-    "d /data/unsorted 0775 sasha data -"
-    "d /data/files 0775 sasha data -"
-    "d /data/.Private 0775 sasha data -"
+    "d /data 0775 data data -"
+    "d /data/encoded-video/ 0755 data data -"
+    "d /data/external 0775 data data -"
+    "d /data/pictures 0775 data data -"
+    "d /data/unsorted 0775 data data -"
+    "d /data/.Private 0775 root data -"
   ];
 
   # packages - arc
@@ -132,9 +131,9 @@ in
     jellyfin-ffmpeg # jellyfin transcoding
     htop # stats
     systemctl-tui # monitoring
-    seafile-shared
-    seafile-client
     zfs
+    fdupes
+    wiper
 
     #hacking
     nmap
@@ -162,7 +161,7 @@ in
     8096 # jellyfin
     443 # tailscale
     9696 # prowlarr
-    80 # adguard
+    3389 # rdp
   ];
   networking.firewall.checkReversePath = "loose";
   networking.networkmanager.enable = true;
@@ -178,11 +177,13 @@ in
 
 # Services
 
+  # gnomerdp - service
+  services.gnome.gnome-remote-desktop.enable = true;
+
   # immich - service
   services.immich = {
     enable = true;
     host = "0.0.0.0";
-    mediaLocation = "/data/external/pictures";
   };
 
   # jellyfin - service
@@ -221,64 +222,11 @@ in
     enable = true;
   };
 
-  #adguard - service
-  services.adguardhome = {
-    enable = true;
-    settings = {
-      http = {
-        address = "0.0.0.0:3000";
-      };
-      dns = {
-        bind_hosts = [ "0.0.0.0" ];
-	port = 53;
-	upstream_dns = [
-	  "https://dns.quad9.net/dns-query"
-	  "https://cloudflare-dns.com/dns-query"
-	];
-	bootstrap_dns = [ "9.9.9.9" "1.1.1.1" ];
-	blocking_mode = "default";
-      };
-      filters = [
-        {
-	  name = "StevenBlack Unified";
-	  url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-	  enabled = true;
-	}
-      ];
-    };
-  };
-  services.adguardhome.mutableSettings = true;
-
 #util
-
-  # docker - util
-  virtualisation.docker = {
-    enable = true;
-    autoPrune.enable = true;
-    enableOnBoot = true;
-    daemon.settings = {
-      log-driver = "local";
-      log-opts = { max-size = "10m"; max-file = "3"; };
-    };
-  };
-
-
-  #homarr
-  virtualisation.oci-containers.containers.homarr = {
-    image = "ghcr.io/homarr-labs/homarr:v1.32";
-    ports = [ "7575:7575" ];
-    volumes = [
-      "/tank/homarr:/app/data/configs"
-      "/var/run/dbus:/var/run/dbus"   # optional: docker status widgets
-    ];
-  };
 
   # desktop manager - util
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
-
-  # rustdesk - util
-  services.xserver.enable = true;
 
   # power management - util
   services.logind.settings.Login = {
@@ -320,4 +268,3 @@ in
 # DO NOT TOUCH BELOW THIS
   system.stateVersion = "26.05";
 }
- 
