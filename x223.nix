@@ -50,12 +50,29 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
+  boot.kernelModules = [ "ip_forward" ];
 
 #config
   nixpkgs.config.allowUnfree = true;
   time.timeZone = "America/New_York";
   services.xserver.xkb.layout = "us";
   hardware.graphics.enable = true;
+
+  systemd.services.create-wg-mullvad-netns = {
+    description = "Create netns for Mullvad WireGuard";
+    wantedBy = [ "multi-user.target" ];
+    before = [ "wireguard-wg-mullvad.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      if ! ${pkgs.iproute2}/bin/ip netns list | grep -q '^wg-mullvad'; then
+        ${pkgs.iproute2}/bin/ip netns add wg-mullvad
+      fi
+    '';
+    unitConfig.ConditionPathExists = "!/run/netns/wg-mullvad";
+  };
 
 
   # user - config
@@ -100,11 +117,6 @@ in
   systemd.tmpfiles.rules = [
     "d /data 0775 x223 data -"
     "d /data/pictures 0775 x223 data -"
-    "d /data/movies 0775 x223 data -"
-    "d /data/shows 0775 x223 data -"
-    "d /data/music 0775 x223 data -"
-    "d /data/books 0775 x223 data -"
-    "d /data/unsorted 0775 x223 data -"
     "d /data/files 0775 x223 data -"
     "d /data/.Private 0775 x223 data -"
     "d /data/videos 0775 x223 data -"
@@ -149,7 +161,7 @@ in
   networking.firewall.allowedTCPPorts = [
     22 # ssh
     1194 # openvpn
-    9090 # cockpit
+    8080 # qbitt
   ];
   networking.firewall.allowedUDPPorts = [
     1194 # openvpn
@@ -158,35 +170,40 @@ in
   networking.networkmanager.enable = true;
   networking.hostName = "x223";
 
-  #mullvad
-  networking.wg-quick.interfaces.wg-mullvad = {
-    address = [ "" ];
-    privateKeyFile = "/data/.Private/mullvad_private.key";
+# VPNS
+
+  #mullvad - networking
+  networking.wireguard.interfaces.wg-mullvad = {
+    privateKeyFile = "/data/.Private/mullvad-wg";
+    ips = [ "10.76.42.33/32" ];
+    table = "main";
+    socketNamespace = "wg-mullvad";
     peers = [{
-      publickKey = "";
-      endpoint = "";
-      allowedIPs = [ "0.0.0.0/0" "::/0" ];
+      publicKey = "H5t7PsMDnUAHrR8D2Jt3Mh6N6w43WmCzrOHShlEU+zw=";
+      endpoint = "45.134.142.206:123";
+      allowedIPs = [ "0.0.0.0/0" ];
       persistentKeepalive = 25;
     }];
-    dns = [ "" ];
   };
 
-  #htb openvpn
-  services.openvpn.servers.htb = {
-    autoStart = false;
-    config = "/data/.Private/htb.ovpn";
-    updateResolvConf = true;
-  };
 
 # Services
-  services.cockpit.enable = true;
 
   #tailscale - arc
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server";
+  };
 
-  #qbittorrent - service
+  #qbit
   services.qbittorrent = {
     enable = true;
+  };
+
+  systemd.services.qbittorrent = {
+    serviceConfig = {
+      NetworkNamespacePath = "/run/netns/wg-mullvad";
+    };
   };
 
 #util
